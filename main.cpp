@@ -6,8 +6,7 @@
 void userOptions (int &arg_count, char **&arg_vector, std::string &network, std::string &filter, int &packet_batch) {
     if (std::strcmp(arg_vector[1], "-man") == 0 ) {
         std::cout << "\nUsage: ./P-Nosey -i [network connection (lo, wlp.... ,etc)] -fitler ['udp' or 'tcp'] -range [how many pakcets to sniff before ending. default: -1 aka. infinite]\n"
-                << "DO NOTE YOU WILL HAVE TO 'cmake build ..' AND 'cd build' IN THAT ORDER BEFORE USING P-NOSEY."
-                << "NOTE: THIS SERVICE POTENTIALLY REQUIRES ROOT PRIVILIGES"; 
+                << "NOTE: THIS SERVICE POTENTIALLY REQUIRES ROOT PRIVILIGES\n"; 
     }
     for (int i = 1; i < arg_count; i++) {
         if (std::strcmp(arg_vector[i], "-i") == 0) {
