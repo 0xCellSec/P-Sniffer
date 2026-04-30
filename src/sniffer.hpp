@@ -3,12 +3,7 @@
 
 // libraries 
 #include <pcap.h>
-#include <netinet/ip.h>
-#include <netinet/tcp.h>
-#include <netinet/udp.h>
-#include <net/ethernet.h>
-#include <iostream>
-#include <arpa/inet.h>
+#include <string>
 
 class Sniffer {
     private:
