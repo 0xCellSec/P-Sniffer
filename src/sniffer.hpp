@@ -17,7 +17,7 @@ class Sniffer {
     Sniffer(std::string network, std::string filter, int packet_batch);
     ~Sniffer();
     void startSniffing();
-    static void packetHandeler(u_char* args, const pcap_pkthdr* header, const u_char* packet);
+    static void packetHandler(u_char* args, const pcap_pkthdr* header, const u_char* packet);
 };
 
 #endif

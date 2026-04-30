@@ -7,7 +7,6 @@
 #include <netinet/udp.h>  
 #include <iostream>
 #include <iomanip>
-
 #include <pcap/pcap.h>
 
 Sniffer::Sniffer(std::string network, std::string bpf_filter, int packet_batch) {
@@ -37,23 +36,23 @@ void Sniffer::startSniffing() {
 
     int compile = pcap_compile(handler, &compiledFilter, sniffer_filter.c_str(), 1, PCAP_NETMASK_UNKNOWN);
     if (compile == -1) {
-        std::cout << "compiler failed";
+        std::cerr << "compiler failed";
         return;
     } 
 
     int set_filter = pcap_setfilter(handler, &compiledFilter);
     if (set_filter == -1) {
-        std::cout << "set_filter failed";
+        std::cerr << "set_filter failed";
         return;
     }
 
 
-    pcap_loop(handler, count, packetHandeler, (u_char*) this);
+    pcap_loop(handler, count, packetHandler, (u_char*) this);
     pcap_freecode(&compiledFilter);
 
 }
 
-void Sniffer::packetHandeler(u_char *args, const pcap_pkthdr *header, const u_char *packet) {
+void Sniffer::packetHandler(u_char *args, const pcap_pkthdr *header, const u_char *packet) {
     // TODO: implement DRY 
     // declaring headers
     const struct ether_header *ethernet;
@@ -75,7 +74,7 @@ void Sniffer::packetHandeler(u_char *args, const pcap_pkthdr *header, const u_ch
     // passes up the address of the 
     ethernet = (struct ether_header*)(packet);
     if (ntohs(ethernet->ether_type) != ETHERTYPE_IP) {
-        return;  // not IPv4, skip it
+        return;  // not IPv4 skip it
     }
 
     ip = (struct iphdr*)(packet + sizeof(ether_header));
@@ -101,6 +100,7 @@ void Sniffer::packetHandeler(u_char *args, const pcap_pkthdr *header, const u_ch
         return;
     }
    
+    // output code
     source_IP = inet_ntoa(*(struct in_addr*)&ip->saddr);
     dest_IP = inet_ntoa(*(struct in_addr*)&ip->daddr);
     if (ip->protocol == IPPROTO_TCP) {
