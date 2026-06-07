@@ -1,5 +1,6 @@
 #include "src/sniffer.hpp"
 #include <cstring>
+#include <iostream>
 #include <string>
 
 
